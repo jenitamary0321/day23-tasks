@@ -1,0 +1,35 @@
+import React, { useState } from 'react';
+import ProductList from './components/ProductList';
+import Cart from './components/Cart';
+import './App.css';
+
+function App() {
+  const [cartItems, setCartItems] = useState({});
+
+  const addToCart = (productId) => {
+    setCartItems(prevItems => ({ ...prevItems, [productId]: true }));
+  };
+
+  const removeFromCart = (productId) => {
+    setCartItems(prevItems => {
+      const newItems = { ...prevItems };
+      delete newItems[productId];
+      return newItems;
+    });
+  };
+
+  return (
+    <div className="App">
+      <Cart cartItems={cartItems} />
+      <ProductList
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        cartItems={cartItems}
+      />
+    </div>
+  );
+}
+
+export default App;
+
+
